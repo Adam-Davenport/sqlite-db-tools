@@ -22,6 +22,9 @@ def create_test_db():
     populate_table(src)
     # Query table
     query_table(src, 'dogs')
+    # Close connections
+    src.close()
+    dest.close()
 
 
 def delete_db(db):
