@@ -13,8 +13,8 @@ def create_test_db():
     # Create db files
     src = sqlite3.connect(src_db)
     dest = sqlite3.connect(dest_db)
-    src.row_factory = sqlite3.Row
-    dest.row_factory = sqlite3.Row
+    # src.row_factory = sqlite3.Row
+    # dest.row_factory = sqlite3.Row
     # Create the table in both databases
     create_table(src)
     create_table(dest)
@@ -72,6 +72,7 @@ def query_table(db, table):
         for col in row:
             current_row.append(col)
         print(current_row)
+        print(row)
 
 if __name__ == "__main__":
     create_test_db()
