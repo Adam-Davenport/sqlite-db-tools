@@ -22,9 +22,15 @@ def create_test_db():
     populate_table(src)
     # Query table
     query_table(src, 'dogs')
+    # Run tests
+    test_db(src_db, dest_db)
     # Close connections
     src.close()
     dest.close()
+
+
+def test_db(src_db, dest_db):
+    sqlite_db_tools.copy_table('dogs', src_db, 'dogs', dest_db)
 
 
 def delete_db(db):
