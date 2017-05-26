@@ -81,6 +81,7 @@ def query_table(db, table):
         print(current_row)
         print(row)
 
+
 class Copy_Test(unittest.TestCase):
 
     def test(self):
