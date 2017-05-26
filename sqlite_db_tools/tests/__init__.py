@@ -55,5 +55,10 @@ def populate_table(db):
             d, dogs[d][0], dogs[d][1])
         db.execute(query)
 
+
+def query_table(db, table):
+    query = 'Select * from ' % table
+    db.exec(query)
+
 if __name__ == "__main__":
     create_test_db()
