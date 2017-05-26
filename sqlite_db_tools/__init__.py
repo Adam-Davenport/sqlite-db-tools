@@ -11,10 +11,10 @@ def copy_table(src_table, src_db, dest_table, dest_db):
     src_data = source.execute('select * from ' + src_table)
     for row in src_data.fetchall():
         cols = tuple([k for k in row.keys()])
-        ins = 'INSERT OR REPLACE INTO %s %s VALUES (%s)' % (
+        # Create basic insert statement that will be populated with values
+        ins = 'INSERT OR REPLACE INTO {} {} VALUES ({})'.format(
             dest_table, cols, ','.join(['?'] * len(cols))
         )
-        print('INSERT stmt = ' + ins)
         values = [row[c] for c in cols]
         dest.execute(ins, values)
     dest.commit()
