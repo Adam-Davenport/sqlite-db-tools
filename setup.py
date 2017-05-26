@@ -1,10 +1,10 @@
 from setuptools import setup
 
 setup(
-    name='sqlite-db-tools',
+    name='sqlite_db_tools',
     description='Tools for managing sqlite3 databases.',
-    url='https://github.com/Adam-Davenport/sqlite-db-tools',
+    url='https://github.com/Adam_Davenport/sqlite_db_tools',
     author='Adam Davenport',
     license='MIT',
-    packages=['data-migration'],
+    packages=['sqlite_db_tools'],
     zip_safe=False)
