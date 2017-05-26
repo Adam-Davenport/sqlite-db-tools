@@ -11,15 +11,25 @@ def copy_table(src_table, src_db, dest_table, dest_db):
     src_data = source.execute('select * from ' + src_table)
     dest_data = dest.cursor()
     for row in src_data.fetchall():
-        values = ','.join(str(c) for c in row)
-        ins = 'insert into {} values ({})'.format(
-          dest_table, values
+        
+        cols = tuple([k for k in row.keys() if k != 'id'])
+        ins = 'INSERT OR REPLACE INTO %s %s VALUES (%s)' % (
+            dest_table, cols, ','.join(['?'] * len(cols))
         )
-        dest.execute(ins)
+        print('INSERT stmt = ' + ins)
+
+        # values = ','.join(str(c) for c in row)
+        # print(values)
+        # ins = 'insert into {} values ({})'.format(
+        #   dest_table, values
+        # )
+        # dest.execute(ins)
 
 
 def open_connection(db_location):
     db = sqlite3.connect(db_location)
+    # Let row be dict/tuple type
+    db.row_factory = sqlite3.Row
     print('Opened database: {}'.format(db_location))
     return db
 
