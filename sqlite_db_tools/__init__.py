@@ -20,3 +20,12 @@ def copy_table(src_table, src_db, dest_table, dest_db):
 def open_connection(db_location):
     db = sqlite3.connect(db_location)
     print('Opened database: ' % db_location)
+
+
+class Copier():
+
+    def __init__(self, source, destination, table):
+        self.source = source
+        self.destination = destination
+        self.source_table = table
+        self.dest_table = table
