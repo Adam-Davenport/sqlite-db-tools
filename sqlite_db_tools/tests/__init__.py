@@ -2,11 +2,12 @@ import sqlite_db_tools
 import sqlite3
 import os
 
+base_dir = os.path.dirname(os.path.abspath(__file__))
+src_db = os.path.join(base_dir, 'db1.sqlite3')
+dest_db = os.path.join(base_dir, 'db2.sqlite3')
+
 
 def create_test_db():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    src_db = os.path.join(base_dir, 'db1.sqlite3')
-    dest_db = os.path.join(base_dir, 'db2.sqlite3')
     # Delete both dbs if they exist
     delete_db(src_db)
     delete_db(dest_db)
@@ -80,5 +81,11 @@ def query_table(db, table):
         print(current_row)
         print(row)
 
+class Copy_Test(unittest.TestCase):
+
+    def test(self):
+        self.assertEqual()
+
 if __name__ == "__main__":
     create_test_db()
+    unittest.main()
