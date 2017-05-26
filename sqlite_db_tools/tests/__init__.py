@@ -13,11 +13,15 @@ def create_test_db():
     # Create db files
     src = sqlite3.connect(src_db)
     dest = sqlite3.connect(dest_db)
+    src.row_factory = sqlite3.Row
+    dest.row_factory = sqlite3.Row
     # Create the table in both databases
     create_table(src)
     create_table(dest)
     # Populate source table
     populate_table(src)
+    # Query table
+    query_table(src, 'dogs')
 
 
 def delete_db(db):
@@ -57,8 +61,13 @@ def populate_table(db):
 
 
 def query_table(db, table):
-    query = 'Select * from ' % table
-    db.exec(query)
+    query = 'Select * from ' + table
+    results = db.execute(query)
+    for row in results.fetchall():
+        current_row = []
+        for col in row:
+            current_row.append(col)
+        print(current_row)
 
 if __name__ == "__main__":
     create_test_db()
