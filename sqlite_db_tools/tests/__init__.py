@@ -48,11 +48,12 @@ def table_data():
 
 
 def populate_table(db):
+    print('Inserting data into table')
     dogs = table_data()
     for d in range(len(dogs)):
-        query = 'insert into dogs values({}, {}, {})'.format(
+        query = 'insert into dogs values({}, "{}", {})'.format(
             d, dogs[d][0], dogs[d][1])
-        print(query)
+        db.execute(query)
 
 if __name__ == "__main__":
     create_test_db()
