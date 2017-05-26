@@ -9,21 +9,15 @@ def copy_table(src_table, src_db, dest_table, dest_db):
     dest = open_connection(dest_db)
     print('Copying data from db {} to db {}.'.format(src_db, dest_db))
     src_data = source.execute('select * from ' + src_table)
-    dest_data = dest.cursor()
     for row in src_data.fetchall():
-        
-        cols = tuple([k for k in row.keys() if k != 'id'])
+        cols = tuple([k for k in row.keys()])
         ins = 'INSERT OR REPLACE INTO %s %s VALUES (%s)' % (
             dest_table, cols, ','.join(['?'] * len(cols))
         )
         print('INSERT stmt = ' + ins)
-
-        # values = ','.join(str(c) for c in row)
-        # print(values)
-        # ins = 'insert into {} values ({})'.format(
-        #   dest_table, values
-        # )
-        # dest.execute(ins)
+        values = [row[c] for c in cols]
+        dest.execute(ins, values)
+    dest.commit()
 
 
 def open_connection(db_location):
