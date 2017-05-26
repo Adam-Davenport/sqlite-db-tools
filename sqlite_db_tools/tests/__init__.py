@@ -58,6 +58,7 @@ def populate_table(db):
         query = 'insert into dogs values({}, "{}", {})'.format(
             d, dogs[d][0], dogs[d][1])
         db.execute(query)
+    db.commit()
 
 
 def query_table(db, table):
