@@ -18,6 +18,8 @@ def copy_table(src_table, src_db, dest_table, dest_db):
         values = [row[c] for c in cols]
         dest.execute(ins, values)
     dest.commit()
+    source.close()
+    dest.close()
 
 
 def open_connection(db_location):
