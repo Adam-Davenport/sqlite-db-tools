@@ -20,5 +20,7 @@ src_db = path_to_db1
 dest_db = path_to_db2
 table = table_name
 copier = Copier(src_db, dest_db, table)
+# If your destination table has a different name
+copier.dest_table = dest_table_name
 ```
 
