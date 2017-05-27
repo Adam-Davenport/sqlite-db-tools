@@ -61,7 +61,6 @@ def table_data():
 
 
 def populate_table(db):
-    print('Inserting data into table')
     dogs = table_data()
     for d in range(len(dogs)):
         query = 'insert into dogs values({}, "{}", {})'.format(
