@@ -2,7 +2,9 @@
 Tools for sqlite3 in python
 
 # Installation
+```
 pip install sqlite_db_tools
+```
 
 # Features:
 
