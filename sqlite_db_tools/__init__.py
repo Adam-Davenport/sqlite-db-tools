@@ -34,7 +34,7 @@ class Copier():
             # values = [row[c] for c in cols]
             values = []
             for c in cols:
-                if self.ignore == False and c == self.id_field:
+                if self.ignore is False and c == self.id_field:
                     values.append(None)
                 else:
                     values.append(row[c])
