@@ -31,7 +31,13 @@ class Copier():
             ins = 'INSERT OR REPLACE INTO {} {} VALUES ({})'.format(
                 self.dest_table, cols, ','.join(['?'] * len(cols))
             )
-            values = [row[c] for c in cols]
+            # values = [row[c] for c in cols]
+            values = []
+            for c in cols:
+                if self.ignore = False and c == self.id_field:
+                    values.append(None)
+                else:
+                    values.append(row[c])
             dest.execute(ins, values)
         dest.commit()
         source.close()
