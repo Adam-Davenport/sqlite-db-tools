@@ -32,15 +32,15 @@ def open_connection(db_location):
 class Copier():
 
     def __init__(self, source, destination, table):
-        self.source = source
-        self.destination = destination
+        self.src_db = source
+        self.dest_db = destination
         self.source_table = table
         self.dest_table = table
         self.ignore = False
 
-    def copy_table(self, src_table, src_db, dest_table, dest_db):
-        source = open_connection(src_db)
-        dest = open_connection(dest_db)
+    def copy_table(self):
+        source = open_connection(self.src_db)
+        dest = open_connection(self.dest_db)
         print('Copying data from db {} to db {}.'.format(src_db, dest_db))
         src_data = source.execute('select * from ' + src_table)
         for row in src_data.fetchall():
