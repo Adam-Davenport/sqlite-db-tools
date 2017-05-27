@@ -8,7 +8,7 @@ src_db = os.path.join(base_dir, 'db1.sqlite3')
 dest_db = os.path.join(base_dir, 'db2.sqlite3')
 
 
-def create_test_db():
+def create_test_db(ignore_id):
     # Delete both dbs if they exist
     delete_db(src_db)
     delete_db(dest_db)
@@ -21,15 +21,17 @@ def create_test_db():
     # Populate source table
     populate_table(src)
     # Run tests
-    test_db(src_db, dest_db)
+    copy_db(src_db, dest_db, ignore_id)
     # Close connections
     src.close()
     dest.close()
 
 
-def test_db(src_db, dest_db):
+def copy_db(src_db, dest_db, ignore_id):
     # sqlite_db_tools.copy_table('dogs', src_db, 'dogs', dest_db)
     copier = Copier(src_db, dest_db, 'dogs')
+    if ignore_id is False:
+        copier.ignore = False
     copier.copy_table()
 
 
@@ -78,6 +80,15 @@ def query_table(db, table):
 class Copy_Test(unittest.TestCase):
 
     def test(self):
+        create_test_db(True)
+        src = sqlite3.connect(src_db)
+        dest = sqlite3.connect(dest_db)
+        src_data = query_table(src, 'dogs')
+        dest_data = query_table(dest, 'dogs')
+        self.assertEqual(src_data, dest_data)
+
+    def test_nulls(self):
+        create_test_db(False)
         src = sqlite3.connect(src_db)
         dest = sqlite3.connect(dest_db)
         src_data = query_table(src, 'dogs')
@@ -86,5 +97,4 @@ class Copy_Test(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    create_test_db()
     unittest.main()
