@@ -21,8 +21,6 @@ def create_test_db():
     create_table(dest)
     # Populate source table
     populate_table(src)
-    # Query table
-    query_table(src, 'dogs')
     # Run tests
     test_db(src_db, dest_db)
     # Close connections
@@ -74,18 +72,17 @@ def populate_table(db):
 def query_table(db, table):
     query = 'Select * from ' + table
     results = db.execute(query)
-    for row in results.fetchall():
-        current_row = []
-        for col in row:
-            current_row.append(col)
-        print(current_row)
-        print(row)
+    return results.fetchall()
 
 
 class Copy_Test(unittest.TestCase):
 
     def test(self):
-        self.assertEqual()
+        src = sqlite3.connect(src_db)
+        dest = sqlite3.connect(dest_db)
+        src_data = query_table(src, 'dogs')
+        dest_data = query_table(dest, 'dogs')
+        self.assertEqual(src_data, dest_data)
 
 if __name__ == "__main__":
     create_test_db()
