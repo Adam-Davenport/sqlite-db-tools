@@ -41,7 +41,6 @@ class Copier():
     def copy_table(self):
         source = open_connection(self.src_db)
         dest = open_connection(self.dest_db)
-        print('Copying data from db {} to db {}.'.format(src_db, dest_db))
         src_data = source.execute('select * from ' + src_table)
         for row in src_data.fetchall():
             cols = tuple([k for k in row.keys()])
