@@ -87,7 +87,7 @@ class Copy_Test(unittest.TestCase):
         dest_data = query_table(dest, 'dogs')
         self.assertEqual(src_data, dest_data)
 
-    def test_nulls(self):
+    def test_autoincrement(self):
         create_test_db(True)
         src = sqlite3.connect(src_db)
         dest = sqlite3.connect(dest_db)
