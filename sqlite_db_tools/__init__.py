@@ -36,14 +36,18 @@ class Copier():
         self.dest_db = destination
         self.source_table = table
         self.dest_table = table
-        self.ignore = False
+        self.ignore = True
+        self.id_field = 'id'
 
     def copy_table(self):
         source = open_connection(self.src_db)
         dest = open_connection(self.dest_db)
         src_data = source.execute('select * from ' + src_table)
         for row in src_data.fetchall():
-            cols = tuple([k for k in row.keys()])
+            if self.ignore:
+                cols = tuple([key for key in row.keys() if k != self.id_field])
+            else:
+                cols = tuple([k for k in row.keys()])
             # Create basic insert statement that will be populated with values
             ins = 'INSERT OR REPLACE INTO {} {} VALUES ({})'.format(
                 dest_table, cols, ','.join(['?'] * len(cols))
