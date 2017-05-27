@@ -36,3 +36,21 @@ class Copier():
         self.destination = destination
         self.source_table = table
         self.dest_table = table
+        self.ignore = False
+
+    def copy_table(self, src_table, src_db, dest_table, dest_db):
+        source = open_connection(src_db)
+        dest = open_connection(dest_db)
+        print('Copying data from db {} to db {}.'.format(src_db, dest_db))
+        src_data = source.execute('select * from ' + src_table)
+        for row in src_data.fetchall():
+            cols = tuple([k for k in row.keys()])
+            # Create basic insert statement that will be populated with values
+            ins = 'INSERT OR REPLACE INTO {} {} VALUES ({})'.format(
+                dest_table, cols, ','.join(['?'] * len(cols))
+            )
+            values = [row[c] for c in cols]
+            dest.execute(ins, values)
+        dest.commit()
+        source.close()
+        dest.close()
