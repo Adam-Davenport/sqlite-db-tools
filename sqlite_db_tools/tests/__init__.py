@@ -84,6 +84,7 @@ class Copy_Test(unittest.TestCase):
         dest_data = query_table(dest, 'dogs')
         self.assertEqual(src_data, dest_data)
 
+
 if __name__ == "__main__":
     create_test_db()
     unittest.main()
