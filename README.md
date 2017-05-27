@@ -6,12 +6,12 @@ Tools for sqlite3 in python
 pip install sqlite_db_tools
 ```
 
-# Features:
+# Features
 
-#Copy:
+#Copy
 This allows you to copy data in one table to a table in a different database.
 
-## Useage:
+## Useage
 Basic usage is as simple as:
 ```
 from sqlite-db-tools import Copier
