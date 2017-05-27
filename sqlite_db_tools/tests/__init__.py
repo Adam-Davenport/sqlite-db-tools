@@ -15,8 +15,6 @@ def create_test_db():
     # Create db files
     src = sqlite3.connect(src_db)
     dest = sqlite3.connect(dest_db)
-    # src.row_factory = sqlite3.Row
-    # dest.row_factory = sqlite3.Row
     # Create the table in both databases
     create_table(src)
     create_table(dest)
