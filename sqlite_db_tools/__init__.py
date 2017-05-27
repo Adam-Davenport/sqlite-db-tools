@@ -18,7 +18,7 @@ class Copier():
         self.dest_db = destination
         self.source_table = table
         self.dest_table = table
-        self.ignore = False
+        self.ignore = True
         self.id_field = 'id'
 
     def copy_table(self):
