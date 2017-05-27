@@ -18,8 +18,8 @@ class Copier():
         self.dest_db = destination
         self.source_table = table
         self.dest_table = table
-        self.ignore = True
-        self.id_field = 'id'
+        self.autoincrement = False
+        self.auto_field = 'id'
 
     def copy_table(self):
         source = open_connection(self.src_db)
@@ -34,7 +34,7 @@ class Copier():
             # values = [row[c] for c in cols]
             values = []
             for c in cols:
-                if self.ignore is False and c == self.id_field:
+                if self.ignore is True and c == self.id_field:
                     values.append(None)
                 else:
                     values.append(row[c])
