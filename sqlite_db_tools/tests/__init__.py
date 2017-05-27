@@ -1,5 +1,5 @@
 import unittest
-import sqlite_db_tools
+from sqlite_db_tools import Copier
 import sqlite3
 import os
 
@@ -30,7 +30,8 @@ def create_test_db():
 
 
 def test_db(src_db, dest_db):
-    sqlite_db_tools.copy_table('dogs', src_db, 'dogs', dest_db)
+    # sqlite_db_tools.copy_table('dogs', src_db, 'dogs', dest_db)
+    copier = Copier(src_db, dest_db, 'dogs')
 
 
 def delete_db(db):
