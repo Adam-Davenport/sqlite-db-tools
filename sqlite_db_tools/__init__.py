@@ -42,12 +42,12 @@ class Copier():
     def copy_table(self):
         source = open_connection(self.src_db)
         dest = open_connection(self.dest_db)
-        src_data = source.execute('select * from ' + src_table)
+        src_data = source.execute('select * from ' + self.source_table)
         for row in src_data.fetchall():
             if self.ignore:
-                cols = tuple([key for key in row.keys() if k != self.id_field])
+                cols = tuple([key for key in row.keys() if key != self.id_field])
             else:
-                cols = tuple([k for k in row.keys()])
+                cols = tuple([key for key in row.keys()])
             # Create basic insert statement that will be populated with values
             ins = 'INSERT OR REPLACE INTO {} {} VALUES ({})'.format(
                 dest_table, cols, ','.join(['?'] * len(cols))
