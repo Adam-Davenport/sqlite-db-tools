@@ -45,7 +45,7 @@ def delete_db(db):
 def create_table(db):
     query = (
         'create table dogs('
-        'id int primary key not null, '
+        'id integer primary key autoincrement not null, '
         'name text not null, '
         'age int not null)')
     db.execute(query)
@@ -66,7 +66,7 @@ def populate_table(db):
     dogs = table_data()
     for d in range(len(dogs)):
         query = 'insert into dogs values({}, "{}", {})'.format(
-            d, dogs[d][0], dogs[d][1])
+            'Null', dogs[d][0], dogs[d][1])
         db.execute(query)
     db.commit()
 
@@ -80,7 +80,7 @@ def query_table(db, table):
 class Copy_Test(unittest.TestCase):
 
     def test(self):
-        create_test_db(True)
+        create_test_db(False)
         src = sqlite3.connect(src_db)
         dest = sqlite3.connect(dest_db)
         src_data = query_table(src, 'dogs')
@@ -88,7 +88,7 @@ class Copy_Test(unittest.TestCase):
         self.assertEqual(src_data, dest_data)
 
     def test_nulls(self):
-        create_test_db(False)
+        create_test_db(True)
         src = sqlite3.connect(src_db)
         dest = sqlite3.connect(dest_db)
         src_data = query_table(src, 'dogs')
