@@ -1,5 +1,5 @@
 import sqlite3
-from sqlite_db_tools import common
+from sqlite_db_tools.common import open_connection
 import sys
 import os
 
