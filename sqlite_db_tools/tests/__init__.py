@@ -1,5 +1,5 @@
 import unittest
-from sqlite_db_tools.migrate import Copier
+from sqlite_db_tools.migrate import Migration
 import sqlite3
 import os
 
