@@ -3,15 +3,7 @@ import sys
 import os
 
 
-def open_connection(db_location):
-    db = sqlite3.connect(db_location)
-    # Let row be dict/tuple type
-    db.row_factory = sqlite3.Row
-    print('Opened database: {}'.format(db_location))
-    return db
-
-
-class Copier():
+class Migration():
 
     def __init__(self, source, destination, table):
         self.src_db = source
@@ -21,9 +13,16 @@ class Copier():
         self.autoincrement = False
         self.auto_field = 'id'
 
+    def open_connection(self, db_location):
+        db = sqlite3.connect(db_location)
+        # Let row be dict/tuple type
+        db.row_factory = sqlite3.Row
+        print('Opened database: {}'.format(db_location))
+        return db
+
     def copy_table(self):
-        source = open_connection(self.src_db)
-        dest = open_connection(self.dest_db)
+        source = self.open_connection(self.src_db)
+        dest = self.open_connection(self.dest_db)
         src_data = source.execute('select * from ' + self.source_table)
         for row in src_data.fetchall():
             cols = tuple([key for key in row.keys()])
@@ -42,3 +41,6 @@ class Copier():
         dest.commit()
         source.close()
         dest.close()
+
+    def create_table(self):
+        source = self.open_connection
