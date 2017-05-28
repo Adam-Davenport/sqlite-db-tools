@@ -1,4 +1,5 @@
 import sqlite3
+from sqlite_db_tools import common
 import sys
 import os
 
@@ -12,15 +13,8 @@ class Migration():
         self.dest_table = table
         self.autoincrement = False
         self.auto_field = 'id'
-        self.source = self.open_connection(self.src_db)
-        self.dest = self.open_connection(self.dest_db)
-
-    def open_connection(self, db_location):
-        db = sqlite3.connect(db_location)
-        # Let row be dict/tuple type
-        db.row_factory = sqlite3.Row
-        print('Opened database: {}'.format(db_location))
-        return db
+        self.source = open_connection(self.src_db)
+        self.dest = open_connection(self.dest_db)
 
     def copy_table(self):
         src_data = self.source.execute('select * from ' + self.source_table)
@@ -54,4 +48,4 @@ class Internal_Migration():
         self.db = db
         self.autoincrement = False
         self.auto_field = 'id'
- 
+
