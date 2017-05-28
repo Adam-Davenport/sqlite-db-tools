@@ -1,5 +1,6 @@
 import unittest
 from sqlite_db_tools.migrate import Migration
+from sqlite_db_tools.common import open_connection
 import sqlite3
 import os
 
@@ -29,10 +30,10 @@ def create_test_db(ignore_id):
 
 def copy_db(src_db, dest_db, auto_field):
     # sqlite_db_tools.copy_table('dogs', src_db, 'dogs', dest_db)
-    copier = Copier(src_db, dest_db, 'dogs')
+    migration = Migration(src_db, dest_db, 'dogs')
     if auto_field is True:
-        copier.auto_field = True
-    copier.copy_table()
+        migration.auto_field = True
+    migration.copy_table()
 
 
 def delete_db(db):
