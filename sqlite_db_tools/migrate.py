@@ -27,6 +27,7 @@ class Migration():
             # values = [row[c] for c in cols]
             values = []
             for c in cols:
+                if self.autoincrement is True and c == self.auto_field:
                     values.append(None)
                 else:
                     values.append(row[c])
