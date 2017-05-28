@@ -12,6 +12,8 @@ class Migration():
         self.dest_table = table
         self.autoincrement = False
         self.auto_field = 'id'
+        self.source = self.open_connection(self.src_db)
+        self.dest = self.open_connection(self.dest_db)
 
     def open_connection(self, db_location):
         db = sqlite3.connect(db_location)
@@ -21,9 +23,7 @@ class Migration():
         return db
 
     def copy_table(self):
-        source = self.open_connection(self.src_db)
-        dest = self.open_connection(self.dest_db)
-        src_data = source.execute('select * from ' + self.source_table)
+        src_data = self.source.execute('select * from ' + self.source_table)
         for row in src_data.fetchall():
             cols = tuple([key for key in row.keys()])
             # Create basic insert statement that will be populated with values
@@ -37,10 +37,9 @@ class Migration():
                     values.append(None)
                 else:
                     values.append(row[c])
-            dest.execute(ins, values)
-        dest.commit()
-        source.close()
-        dest.close()
+            self.dest.execute(ins, values)
+        self.dest.commit()
+        self.source.close()
+        self.dest.close()
 
     def create_table(self):
-        source = self.open_connection
