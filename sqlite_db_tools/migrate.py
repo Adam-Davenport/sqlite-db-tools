@@ -27,7 +27,6 @@ class Migration():
             # values = [row[c] for c in cols]
             values = []
             for c in cols:
-                if self.ignore is True and c == self.id_field:
                     values.append(None)
                 else:
                     values.append(row[c])
