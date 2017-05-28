@@ -45,7 +45,27 @@ class Internal_Migration():
 
     def __init__(self, db, table):
         self.table = table
-        self.db = db
+        self.db = open_connection(db)
         self.autoincrement = False
         self.auto_field = 'id'
 
+    def close(self):
+        self.db.close()
+
+    def copy_table(self):
+        src_data = self.db.execute('select * from ' + self.source_table)
+        for row in src_data.fetchall():
+            cols = tuple([key for key in row.keys()])
+            # Create basic insert statement that will be populated with values
+            ins = 'INSERT OR REPLACE INTO {} {} VALUES ({})'.format(
+                self.dest_table, cols, ','.join(['?'] * len(cols))
+            )
+            # values = [row[c] for c in cols]
+            values = []
+            for c in cols:
+                if self.autoincrement is True and c == self.auto_field:
+                    values.append(None)
+                else:
+                    values.append(row[c])
+            self.db.execute(ins, values)
+        self.db.commit()
