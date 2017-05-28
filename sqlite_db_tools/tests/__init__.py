@@ -78,7 +78,7 @@ def query_table(db, table):
     return results.fetchall()
 
 
-class Copy_Test(unittest.TestCase):
+class Migration_Test(unittest.TestCase):
 
     def test(self):
         create_test_db(False)
