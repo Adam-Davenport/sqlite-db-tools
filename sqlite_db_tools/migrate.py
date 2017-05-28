@@ -43,3 +43,15 @@ class Migration():
         self.dest.close()
 
     def create_table(self):
+        # Copy schema from one table to another
+        src_data = self.source.execute('select * from ' + self.source_table)
+
+
+class Internal_Migration():
+
+    def __init__(self, db, table):
+        self.table = table
+        self.db = db
+        self.autoincrement = False
+        self.auto_field = 'id'
+ 
