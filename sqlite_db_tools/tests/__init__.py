@@ -1,5 +1,5 @@
 import unittest
-from sqlite_db_tools.migrate import Migration
+from sqlite_db_tools.migrate import Migration, Internal_Migration
 from sqlite_db_tools.common import open_connection
 import sqlite3
 import os
@@ -7,6 +7,7 @@ import os
 base_dir = os.path.dirname(os.path.abspath(__file__))
 src_db = os.path.join(base_dir, 'db1.sqlite3')
 dest_db = os.path.join(base_dir, 'db2.sqlite3')
+solo_db = os.path.join(base_dir, 'solo.sqlite3')
 
 
 def create_test_db(ignore_id):
@@ -28,12 +29,30 @@ def create_test_db(ignore_id):
     dest.close()
 
 
+def create_single_db(auto_increment):
+    # Delete db if it exists
+    delete_db(solo_db)
+    # Connect db
+    db = sqlite3.connect(solo_db)
+    # Create the table in both databases
+    create_table(db)
+    # Populate source table
+    populate_table(db)
+    # Copy the tables
+    # Close connections
+    db.close()
+
+
 def copy_db(src_db, dest_db, auto_field):
     # sqlite_db_tools.copy_table('dogs', src_db, 'dogs', dest_db)
     migration = Migration(src_db, dest_db, 'dogs')
     if auto_field is True:
         migration.auto_field = True
     migration.copy_table()
+
+
+def copy_solo_db(db, auto_field):
+    migration = Internal_Migration()
 
 
 def delete_db(db):
@@ -95,6 +114,9 @@ class Migration_Test(unittest.TestCase):
         src_data = query_table(src, 'dogs')
         dest_data = query_table(dest, 'dogs')
         self.assertEqual(src_data, dest_data)
+    
+    def internal_test(self):
+        
 
 
 if __name__ == "__main__":
