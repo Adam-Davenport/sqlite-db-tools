@@ -44,7 +44,7 @@ class Migration():
 class Internal_Migration():
 
     def __init__(self, db, table):
-        self.table = table
+        self.table = table.join('_copy')
         self.db = open_connection(db)
         self.autoincrement = False
         self.auto_field = 'id'
@@ -58,7 +58,7 @@ class Internal_Migration():
             cols = tuple([key for key in row.keys()])
             # Create basic insert statement that will be populated with values
             ins = 'INSERT OR REPLACE INTO {} {} VALUES ({})'.format(
-                self.dest_table, cols, ','.join(['?'] * len(cols))
+                self.table, cols, ','.join(['?'] * len(cols))
             )
             # values = [row[c] for c in cols]
             values = []
