@@ -114,10 +114,18 @@ class Migration_Test(unittest.TestCase):
         src_data = query_table(src, 'dogs')
         dest_data = query_table(dest, 'dogs')
         self.assertEqual(src_data, dest_data)
-    
-    def internal_test(self):
-        
 
+    def internal_test(self):
+        create_single_db(False)
+        db = sqlite3.connect(solo_db)
+        table1 = query_table(db, 'dogs')
+        table2 = query_table(db, 'dogs_copy')
+
+    def internal_test_autoincrement(self):
+        create_single_db(True)
+        db = sqlite3.connect(solo_db)
+        table1 = query_table(db, 'dogs')
+        table2 = query_table(db, 'dogs_copy')
 
 if __name__ == "__main__":
     unittest.main()
