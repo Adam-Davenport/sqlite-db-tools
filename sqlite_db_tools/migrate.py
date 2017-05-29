@@ -39,7 +39,7 @@ class Migration():
     def create_table(self):
         # Copy schema from one table to another
         src_data = self.source.execute('select * from ' + self.source_table)
-
+    
 
 class Internal_Migration():
 

@@ -36,6 +36,7 @@ def create_single_db(auto_increment):
     db = sqlite3.connect(solo_db)
     # Create the table in both databases
     create_table(db)
+    create_internal_table(db)
     # Populate source table
     populate_table(db)
     # Copy the tables
@@ -65,6 +66,15 @@ def delete_db(db):
 def create_table(db):
     query = (
         'create table dogs('
+        'id integer primary key autoincrement not null, '
+        'name text not null, '
+        'age int not null)')
+    db.execute(query)
+
+
+def create_internal_table(db):
+    query = (
+        'create table dogs_copy('
         'id integer primary key autoincrement not null, '
         'name text not null, '
         'age int not null)')
