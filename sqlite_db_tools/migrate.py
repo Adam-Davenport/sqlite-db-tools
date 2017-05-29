@@ -43,8 +43,9 @@ class Migration():
 
 class Internal_Migration():
 
-    def __init__(self, db, table):
-        self.table = table.join('_copy')
+    def __init__(self, db, table1, table2):
+        self.table1 = table1
+        self.table2 = table2
         self.db = open_connection(db)
         self.autoincrement = False
         self.auto_field = 'id'
@@ -53,12 +54,12 @@ class Internal_Migration():
         self.db.close()
 
     def copy_table(self):
-        src_data = self.db.execute('select * from ' + self.source_table)
+        src_data = self.db.execute('select * from ' + self.table1)
         for row in src_data.fetchall():
             cols = tuple([key for key in row.keys()])
             # Create basic insert statement that will be populated with values
             ins = 'INSERT OR REPLACE INTO {} {} VALUES ({})'.format(
-                self.table, cols, ','.join(['?'] * len(cols))
+                self.table2, cols, ','.join(['?'] * len(cols))
             )
             # values = [row[c] for c in cols]
             values = []

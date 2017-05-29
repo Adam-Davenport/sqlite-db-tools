@@ -40,6 +40,8 @@ def create_single_db(auto_increment):
     # Populate source table
     populate_table(db)
     # Copy the tables
+    migration = Internal_Migration(solo_db, 'dogs', 'dogs_copy')
+    migration.copy_table()
     # Close connections
     db.close()
 
