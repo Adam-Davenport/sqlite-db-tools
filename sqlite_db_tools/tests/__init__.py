@@ -50,7 +50,7 @@ def copy_db(src_db, dest_db, auto_field):
     # sqlite_db_tools.copy_table('dogs', src_db, 'dogs', dest_db)
     migration = Migration(src_db, dest_db, 'dogs')
     if auto_field is True:
-        migration.auto_field = True
+        migration.autoincrement = True
     migration.copy_table()
 
 
