@@ -36,7 +36,7 @@ class Migration():
         self.source.close()
         self.dest.close()
 
-    def create_table(self):
+    def copy_table_structure(self):
         # Copy schema from one table to another
         src_data = self.source.execute('select * from ' + self.source_table)
 
