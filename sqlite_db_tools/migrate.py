@@ -70,3 +70,11 @@ class Internal_Migration():
                     values.append(row[c])
             self.db.execute(ins, values)
         self.db.commit()
+
+    def copy_schema(self):
+        query = (
+            'pragma table_info("{}")'
+        ).format(self.table1)
+        results = self.db.execute(query).fetchall()
+        for row in results:
+            print([c for c in row])
