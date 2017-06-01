@@ -140,6 +140,11 @@ class Migration_Test(unittest.TestCase):
         table1 = query_table(db, 'dogs')
         table2 = query_table(db, 'dogs_copy')
         self.assertEqual(table1, table2)
+    
+    def test_schema(self):
+        create_single_db(solo_db)
+        migration = Internal_Migration(solo_db, 'dogs', 'dogs')
+        migration.copy_schema()
 
 if __name__ == "__main__":
     unittest.main()
