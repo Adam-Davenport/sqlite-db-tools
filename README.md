@@ -9,10 +9,10 @@ pip install sqlite_db_tools
 # Features
 Copy table
 
-#Migration
+## Migration
 This allows you to copy data in one table to a table in a different database.
 
-## Usage
+### Usage
 Basic usage is as simple as:
 ```
 from sqlite-db-tools import Migration
