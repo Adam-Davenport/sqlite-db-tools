@@ -13,7 +13,7 @@ This allows you to copy data in one table to a table in a different database.
 
 Basic usage is as simple as:
 ```
-from sqlite-db-tools import Migration
+from sqlite_db_tools.migrate import Migration
 
 src_db = 'path_to_source'
 dest_db = 'path_to_dest'
@@ -32,4 +32,6 @@ migration.auto_field = 'auto_field name'
 # Execute migration of table data
 migration.copy_table()
 ```
+
+## Internal Migration
 
