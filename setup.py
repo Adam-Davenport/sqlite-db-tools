@@ -7,4 +7,6 @@ setup(
     author='Adam Davenport',
     license='MIT',
     packages=['sqlite_db_tools'],
-    zip_safe=False)
+    zip_safe=False,
+    version='0.01'
+    )
